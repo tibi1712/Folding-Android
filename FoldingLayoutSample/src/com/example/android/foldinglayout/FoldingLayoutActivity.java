@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013 The Android Open Source Project
+O * Copyright (C) 2013 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,7 +21,6 @@ import java.io.IOException;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.graphics.Color;
 import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
@@ -30,6 +29,7 @@ import android.graphics.SurfaceTexture;
 import android.hardware.Camera;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.TextureView;
@@ -42,9 +42,9 @@ import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 
-import com.ptr.foldinglayout.FoldingLayout;
-import com.ptr.foldinglayout.FoldingLayout.Orientation;
-import com.ptr.foldinglayout.OnFoldListener;
+import com.ptr.folding.FoldingLayout;
+import com.ptr.folding.FoldingLayout.Orientation;
+import com.ptr.folding.listener.OnFoldListener;
 
 /**
  * This application creates  a paper like folding effect of some view.
@@ -62,7 +62,7 @@ import com.ptr.foldinglayout.OnFoldListener;
  * contains a 1 pixel transparent border around its contents which can be used to avoid
  * this unwanted artifact.
  */
-public class FoldingLayoutActivity extends Activity {
+public class FoldingLayoutActivity extends ActionBarActivity {
 
     private final int ANTIALIAS_PADDING = 1;
 
