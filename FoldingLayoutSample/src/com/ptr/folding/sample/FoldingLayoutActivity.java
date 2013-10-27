@@ -14,7 +14,7 @@ O * Copyright (C) 2013 The Android Open Source Project
  * limitations under the License.
  */
 
-package com.example.android.foldinglayout;
+package com.ptr.folding.sample;
 
 import java.io.IOException;
 
@@ -42,6 +42,7 @@ import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 
+import com.ptr.folding.sample.R;
 import com.ptr.folding.FoldingLayout;
 import com.ptr.folding.FoldingLayout.Orientation;
 import com.ptr.folding.listener.OnFoldListener;

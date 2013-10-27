@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.android.foldinglayout;
+package com.ptr.folding.sample;
 
 import java.util.Locale;
 
@@ -39,6 +39,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.ptr.folding.sample.R;
 import com.ptr.folding.FoldingDrawerLayout;
 
 /**

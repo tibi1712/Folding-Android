@@ -1,4 +1,6 @@
-package com.example.android.foldinglayout;
+package com.ptr.folding.sample;
+
+import com.ptr.folding.sample.R;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
