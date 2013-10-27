@@ -17,19 +17,32 @@
         android:label="@string/app_name" 
         android:theme="@style/Theme.Ptr">
         
-        <activity
-            android:name="com.ptr.folding.sample.FoldingLayoutActivity"
-            android:label="@string/app_name" >
-            <intent-filter>
+              <activity
+            android:name=".MainActivity"
+            android:label="@string/title_activity_main" >
+             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name="com.ptr.folding.sample.MainActivity"
-            android:label="@string/title_activity_main" >
+            android:name=".FoldingLayoutActivity"
+            android:label="@string/app_folding" >
+           
         </activity>
+        <activity
+            android:name=".FoldingDrawerLayoutActivity"
+            android:label="@string/app_foldingdrawer" >
+           
+        </activity>
+        
+        <activity
+            android:name=".FoldingPaneLayoutActivity"
+            android:label="@string/app_foldingpanel" >
+           
+        </activity>
+  
     </application>
 
 </manifest>

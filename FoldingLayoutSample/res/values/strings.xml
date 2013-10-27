@@ -54,5 +54,12 @@
     <string name="title_activity_main">MainActivity</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
+    
+    
+        <string name="app_folding">FoldingLayout</string>
+    <string name="app_foldingdrawer">FoldingDrawerLayout</string>
+    <string name="app_foldingpanel">FoldingPanelLayout</string>
+    
+  
 
 </resources>

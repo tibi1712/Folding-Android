@@ -21,7 +21,6 @@ import java.io.IOException;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
-import android.graphics.Color;
 import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Paint;
@@ -40,9 +39,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ImageView;
 import android.widget.SeekBar;
-import android.widget.Spinner;
 
-import com.ptr.folding.sample.R;
 import com.ptr.folding.FoldingLayout;
 import com.ptr.folding.FoldingLayout.Orientation;
 import com.ptr.folding.listener.OnFoldListener;
@@ -130,7 +127,7 @@ public class FoldingLayoutActivity extends ActionBarActivity {
 
         mAnchorSeekBar = (SeekBar)findViewById(R.id.anchor_seek_bar);
         mFoldLayout = (FoldingLayout)findViewById(R.id.fold_view);
-        mFoldLayout.setBackgroundColor(Color.BLACK);
+       
         mFoldLayout.setFoldListener(mOnFoldListener);
 
         
@@ -272,8 +269,8 @@ public class FoldingLayoutActivity extends ActionBarActivity {
         } else {
             getMenuInflater().inflate(R.menu.fold, menu);
         }
-        Spinner s = (Spinner) menu.findItem(R.id.num_of_folds).getActionView();
-        s.setOnItemSelectedListener(mItemSelectedListener);
+       //Spinner s = (Spinner) menu.findItem(R.id.num_of_folds).getActionView();
+        //s.setOnItemSelectedListener(mItemSelectedListener);
         return true;
     }
 

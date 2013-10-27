@@ -74,6 +74,7 @@ import com.ptr.folding.FoldingPaneLayout;
  * </p>
  */
 public class FoldingPaneLayoutActivity extends ActionBarActivity {
+	       
 	private FoldingPaneLayout mDrawerLayout;
 	private ListView mDrawerList;
 

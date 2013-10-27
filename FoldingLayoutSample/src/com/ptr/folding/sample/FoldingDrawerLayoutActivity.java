@@ -1,4 +1,5 @@
 /*
+ * Copyright 2013 Priboi Tiberiu
  * Copyright 2013 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -70,6 +71,8 @@ import com.ptr.folding.FoldingDrawerLayout;
  * for example enabling or disabling a data overlay on top of the current content.</p>
  */
 public class FoldingDrawerLayoutActivity extends ActionBarActivity {
+	         
+	
     private FoldingDrawerLayout mDrawerLayout;
     private ListView mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;

@@ -5,7 +5,7 @@
  * should not be modified by hand.
  */
 
-package com.ptr.foldinglayout;
+package com.ptr.folding;
 
 public final class R {
     public static final class attr {
@@ -59,7 +59,7 @@ containing a value of this type.
            <colgroup align="left" />
            <colgroup align="left" />
            <tr><th>Attribute</th><th>Description</th></tr>
-           <tr><td><code>{@link #FoldingMenu_foldNumber com.ptr.foldinglayout:foldNumber}</code></td><td></td></tr>
+           <tr><td><code>{@link #FoldingMenu_foldNumber com.ptr.folding:foldNumber}</code></td><td></td></tr>
            </table>
            @see #FoldingMenu_foldNumber
          */
@@ -67,7 +67,7 @@ containing a value of this type.
             0x7f010000
         };
         /**
-          <p>This symbol is the offset where the {@link com.ptr.foldinglayout.R.attr#foldNumber}
+          <p>This symbol is the offset where the {@link com.ptr.folding.R.attr#foldNumber}
           attribute's value can be found in the {@link #FoldingMenu} array.
 
 
@@ -77,7 +77,7 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name com.ptr.foldinglayout:foldNumber
+          @attr name com.ptr.folding:foldNumber
         */
         public static final int FoldingMenu_foldNumber = 0;
     };

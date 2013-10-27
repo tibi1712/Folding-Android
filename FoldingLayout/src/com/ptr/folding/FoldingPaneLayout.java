@@ -24,7 +24,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.ptr.foldinglayout.R;
+import com.ptr.folding.R;
 
 /**
  * FoldingPaneLayout change the sliding effect with folding effect of SlidingPaneLayout

@@ -33,7 +33,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.ptr.folding.listener.OnFoldListener;
-import com.ptr.foldinglayout.R;
+import com.ptr.folding.R;
 
 /**
  * The folding layout where the number of folds, the anchor point and the
