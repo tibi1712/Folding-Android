@@ -391,6 +391,7 @@ int menu fold 0x7f0d0000
 int menu fold_with_bug 0x7f0d0001
 int menu main 0x7f0d0002
 int menu main2 0x7f0d0003
+int menu menu_spinner 0x7f0d0004
 int string abc_action_bar_home_description 0x7f0a0001
 int string abc_action_bar_up_description 0x7f0a0002
 int string abc_action_menu_overflow_description 0x7f0a0003

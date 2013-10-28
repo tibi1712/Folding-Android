@@ -17,16 +17,8 @@
     xmlns:yourapp="http://schemas.android.com/apk/res-auto" >
 
     <item
-        android:id="@+id/toggle_orientation"
-        android:title="@string/vertical"
-        yourapp:showAsAction="never"/>
-    <item
         android:id="@+id/num_of_folds"
         yourapp:actionLayout="@layout/spinner"
         yourapp:showAsAction="ifRoom"/>
-    <item
-        android:id="@+id/animate_fold"
-        android:title="@string/animate"
-        yourapp:showAsAction="never"/>
 
 </menu>

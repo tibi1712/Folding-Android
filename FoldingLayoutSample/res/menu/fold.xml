@@ -12,17 +12,19 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+<menu xmlns:android="http://schemas.android.com/apk/res/android" 
+    xmlns:yourapp="http://schemas.android.com/apk/res-auto"
+    >
 
     <item
         android:id="@+id/toggle_orientation"
-        android:showAsAction="never"
+        yourapp:showAsAction="never"
         android:title="@string/vertical"/>
 
     <item
         android:id="@+id/num_of_folds"
-        android:showAsAction="ifRoom"
-        android:actionLayout="@layout/spinner"/>
+        yourapp:showAsAction="ifRoom"
+        yourapp:actionLayout="@layout/spinner"/>
 
     <item
         android:title="@string/sepia_effect_off"
@@ -35,7 +37,7 @@
 
     <item
         android:id="@+id/animate_fold"
-        android:showAsAction="never"
+        yourapp:showAsAction="never"
         android:title="@string/animate"/>
 
 </menu>

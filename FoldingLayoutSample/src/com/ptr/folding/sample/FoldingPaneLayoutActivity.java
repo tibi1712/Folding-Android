@@ -1,4 +1,5 @@
 /*
+ * Copyright 2013 Priboi Tiberiu
  * Copyright 2013 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,28 +17,25 @@
 
 package com.ptr.folding.sample;
 
-import java.util.Locale;
-
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.SearchManager;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBarActivity;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.ptr.folding.sample.R;
 import com.ptr.folding.FoldingPaneLayout;
 
 /**
@@ -74,15 +72,16 @@ import com.ptr.folding.FoldingPaneLayout;
  * </p>
  */
 public class FoldingPaneLayoutActivity extends ActionBarActivity {
-	       
-	private FoldingPaneLayout mDrawerLayout;
-	private ListView mDrawerList;
+
+	private FoldingPaneLayout mPaneLayout;
+	private ListView mPaneList;
+	
 
 	private CharSequence mDrawerTitle;
 	private CharSequence mTitle;
-	private String[] mPlanetTitles;
+	private String[] mAnimalTitles;
 
-	//private FoldingNavigationLayout mFoldLayout;
+	private ItemSelectedListener mItemSelectedListener;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -90,22 +89,22 @@ public class FoldingPaneLayoutActivity extends ActionBarActivity {
 		setContentView(R.layout.activity_pane);
 
 		mTitle = mDrawerTitle = getTitle();
-		mPlanetTitles = getResources().getStringArray(R.array.planets_array);
-		mDrawerLayout = (FoldingPaneLayout) findViewById(R.id.drawer_layout);
-		mDrawerList = (ListView) findViewById(R.id.left_drawer);
+		mAnimalTitles = getResources().getStringArray(R.array.planets_array);
+		mPaneLayout = (FoldingPaneLayout) findViewById(R.id.drawer_layout);
+		mPaneList = (ListView) findViewById(R.id.left_drawer);
 
-		
-		mDrawerLayout.getFoldingLayout().setBackgroundColor(Color.BLACK);
+		mItemSelectedListener = new ItemSelectedListener();
+
+		mPaneLayout.getFoldingLayout().setBackgroundColor(Color.BLACK);
 
 		// set up the drawer's list view with items and click listener
-		mDrawerList.setAdapter(new ArrayAdapter<String>(this,
-				R.layout.drawer_list_item, mPlanetTitles));
-		mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+		mPaneList.setAdapter(new ArrayAdapter<String>(this,
+				R.layout.drawer_list_item, mAnimalTitles));
+		mPaneList.setOnItemClickListener(new DrawerItemClickListener());
 
 		// enable ActionBar app icon to behave as action to toggle nav drawer
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		getSupportActionBar().setHomeButtonEnabled(true);
-
 
 		if (savedInstanceState == null) {
 			selectItem(0);
@@ -115,7 +114,12 @@ public class FoldingPaneLayoutActivity extends ActionBarActivity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.main2, menu);
+		inflater.inflate(R.menu.menu_spinner, menu);
+
+		MenuItem spinerItem = menu.findItem(R.id.num_of_folds);
+		Spinner s = (Spinner) MenuItemCompat.getActionView(spinerItem);
+
+		s.setOnItemSelectedListener(mItemSelectedListener);
 		return super.onCreateOptionsMenu(menu);
 	}
 
@@ -124,8 +128,7 @@ public class FoldingPaneLayoutActivity extends ActionBarActivity {
 	public boolean onPrepareOptionsMenu(Menu menu) {
 		// If the nav drawer is open, hide action items related to the content
 		// view
-		boolean drawerOpen = mDrawerLayout.isOpen();
-		menu.findItem(R.id.action_websearch).setVisible(!drawerOpen);
+
 		return super.onPrepareOptionsMenu(menu);
 	}
 
@@ -137,7 +140,8 @@ public class FoldingPaneLayoutActivity extends ActionBarActivity {
 		case R.id.action_websearch:
 			// create intent to perform web search for this planet
 			Intent intent = new Intent(Intent.ACTION_WEB_SEARCH);
-			intent.putExtra(SearchManager.QUERY, getSupportActionBar().getTitle());
+			intent.putExtra(SearchManager.QUERY, getSupportActionBar()
+					.getTitle());
 			// catch event that there's no activity to handle intent
 			if (intent.resolveActivity(getPackageManager()) != null) {
 				startActivity(intent);
@@ -163,9 +167,9 @@ public class FoldingPaneLayoutActivity extends ActionBarActivity {
 
 	private void selectItem(int position) {
 		// update the main content by replacing fragments
-		Fragment fragment = new PlanetFragment();
+		Fragment fragment = new AnimalFragment();
 		Bundle args = new Bundle();
-		args.putInt(PlanetFragment.ARG_PLANET_NUMBER, position);
+		args.putInt(AnimalFragment.ARG_ANIMAL_NUMBER, position);
 		fragment.setArguments(args);
 
 		FragmentManager fragmentManager = getFragmentManager();
@@ -173,9 +177,9 @@ public class FoldingPaneLayoutActivity extends ActionBarActivity {
 				.replace(R.id.content_frame, fragment).commit();
 
 		// update selected item and title, then close the drawer
-		mDrawerList.setItemChecked(position, true);
-		setTitle(mPlanetTitles[position]);
-		mDrawerLayout.closePane();
+		mPaneList.setItemChecked(position, true);
+		setTitle(mAnimalTitles[position]);
+		mPaneLayout.closePane();
 	}
 
 	@Override
@@ -189,34 +193,24 @@ public class FoldingPaneLayoutActivity extends ActionBarActivity {
 	 * onPostCreate() and onConfigurationChanged()...
 	 */
 
-
-
 	/**
-	 * Fragment that appears in the "content_frame", shows a planet
+	 * Listens for selection events of the spinner located on the action bar.
+	 * Every time a new value is selected, the number of folds in the folding
+	 * view is updated and is also restored to a default unfolded state.
 	 */
-	public static class PlanetFragment extends Fragment {
-		public static final String ARG_PLANET_NUMBER = "planet_number";
+	private class ItemSelectedListener implements OnItemSelectedListener {
+		@Override
+		public void onItemSelected(AdapterView<?> parent, View view, int pos,
+				long id) {
+			int mNumberOfFolds = Integer.parseInt(parent.getItemAtPosition(pos)
+					.toString());
 
-		public PlanetFragment() {
-			// Empty constructor required for fragment subclasses
+			mPaneLayout.getFoldingLayout().setNumberOfFolds(mNumberOfFolds);
+
 		}
 
 		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.fragment_planet,
-					container, false);
-			int i = getArguments().getInt(ARG_PLANET_NUMBER);
-			String planet = getResources()
-					.getStringArray(R.array.planets_array)[i];
-
-			int imageId = getResources().getIdentifier(
-					planet.toLowerCase(Locale.getDefault()), "drawable",
-					getActivity().getPackageName());
-			((ImageView) rootView.findViewById(R.id.image))
-					.setImageResource(imageId);
-			getActivity().setTitle(planet);
-			return rootView;
+		public void onNothingSelected(AdapterView<?> arg0) {
 		}
 	}
 }

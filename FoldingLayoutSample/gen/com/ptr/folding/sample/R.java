@@ -1181,6 +1181,7 @@ containing a value of this type.
         public static final int fold_with_bug=0x7f0d0001;
         public static final int main=0x7f0d0002;
         public static final int main2=0x7f0d0003;
+        public static final int menu_spinner=0x7f0d0004;
     }
     public static final class string {
         /**  Content description for the action bar "home" affordance. [CHAR LIMIT=NONE] 
