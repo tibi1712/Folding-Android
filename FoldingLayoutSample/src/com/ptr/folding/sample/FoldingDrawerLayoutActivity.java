@@ -38,7 +38,7 @@ import android.widget.Spinner;
 import com.ptr.folding.FoldingDrawerLayout;
 
 /**
- * This example illustrates a common usage of the DrawerLayout widget in the
+ * This example illustrates a common usage of the FoldingDrawerLayout widget to add Folding Efect to DrawerLayout from
  * Android support library.
  * <p/>
  * <p>

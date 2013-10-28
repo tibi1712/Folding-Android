@@ -1169,7 +1169,7 @@ containing a value of this type.
         public static final int activity_main=0x7f03001a;
         public static final int activity_pane=0x7f03001b;
         public static final int drawer_list_item=0x7f03001c;
-        public static final int fragment_planet=0x7f03001d;
+        public static final int fragment_animal=0x7f03001d;
         public static final int spinner=0x7f03001e;
         public static final int support_simple_spinner_dropdown_item=0x7f03001f;
     }

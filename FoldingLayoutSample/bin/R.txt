@@ -381,7 +381,7 @@ int layout activity_fold 0x7f030019
 int layout activity_main 0x7f03001a
 int layout activity_pane 0x7f03001b
 int layout drawer_list_item 0x7f03001c
-int layout fragment_planet 0x7f03001d
+int layout fragment_animal 0x7f03001d
 int layout spinner 0x7f03001e
 int layout support_simple_spinner_dropdown_item 0x7f03001f
 int menu fold 0x7f0d0000
