@@ -17,7 +17,7 @@
 -->
 <resources>
 
-    <string name="app_name">FoldingLayout</string>
+    <string name="app_name">Folding Library</string>
     <string name="title_activity_fold">FoldActivity</string>
     <string name="horizontal">Horizontal</string>
     <string name="vertical">Vertical</string>
@@ -48,7 +48,7 @@
     <string name="drawer_close">Close navigation drawer</string>
     <string name="action_websearch">Web search</string>
     <string name="app_not_available">Sorry, there\'s no web browser available</string>
-    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_main">Folding Library</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
     <string name="app_folding">FoldingLayout</string>
