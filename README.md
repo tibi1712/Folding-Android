@@ -1,4 +1,4 @@
-FoldingLayout-Android
+Folding-Android
 =====================
 
 About
