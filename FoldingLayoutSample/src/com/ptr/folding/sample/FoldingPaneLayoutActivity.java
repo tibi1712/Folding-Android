@@ -89,7 +89,7 @@ public class FoldingPaneLayoutActivity extends ActionBarActivity {
 		setContentView(R.layout.activity_pane);
 
 		mTitle = mDrawerTitle = getTitle();
-		mAnimalTitles = getResources().getStringArray(R.array.planets_array);
+		mAnimalTitles = getResources().getStringArray(R.array.animal_array);
 		mPaneLayout = (FoldingPaneLayout) findViewById(R.id.drawer_layout);
 		mPaneList = (ListView) findViewById(R.id.left_drawer);
 

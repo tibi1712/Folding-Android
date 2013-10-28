@@ -88,7 +88,7 @@ public class FoldingDrawerLayoutActivity extends ActionBarActivity {
 		setContentView(R.layout.activity_drawer);
 
 		mTitle = mDrawerTitle = getTitle();
-		mAnimalTitles = getResources().getStringArray(R.array.planets_array);
+		mAnimalTitles = getResources().getStringArray(R.array.animal_array);
 		mDrawerLayout = (FoldingDrawerLayout) findViewById(R.id.drawer_layout);
 		mDrawerList = (ListView) findViewById(R.id.left_drawer);
 

@@ -17,8 +17,8 @@ public final class R {
         public static final int abc_slide_out_top=0x7f040005;
     }
     public static final class array {
+        public static final int animal_array=0x7f0c0001;
         public static final int num_of_folds_array=0x7f0c0000;
-        public static final int planets_array=0x7f0c0001;
     }
     public static final class attr {
         /**  Custom divider drawable to use for elements in the action bar. 
@@ -996,44 +996,41 @@ containing a value of this type.
         public static final int abc_textfield_searchview_right_holo_dark=0x7f02005b;
         public static final int abc_textfield_searchview_right_holo_light=0x7f02005c;
         public static final int action_search=0x7f02005d;
-        public static final int btn_cab_done_default_ptr=0x7f02005e;
-        public static final int btn_cab_done_focused_ptr=0x7f02005f;
-        public static final int btn_cab_done_pressed_ptr=0x7f020060;
-        public static final int btn_cab_done_ptr=0x7f020061;
-        public static final int cab_background_bottom_ptr=0x7f020062;
-        public static final int cab_background_top_ptr=0x7f020063;
-        public static final int drawer_shadow=0x7f020064;
-        public static final int earth=0x7f020065;
-        public static final int ic_drawer=0x7f020066;
-        public static final int ic_launcher=0x7f020067;
-        public static final int image=0x7f020068;
-        public static final int jupiter=0x7f020069;
-        public static final int list_focused_ptr=0x7f02006a;
-        public static final int mars=0x7f02006b;
-        public static final int menu_dropdown_panel_ptr=0x7f02006c;
-        public static final int mercury=0x7f02006d;
-        public static final int neptune=0x7f02006e;
-        public static final int pressed_background_ptr=0x7f02006f;
-        public static final int progress_bg_ptr=0x7f020070;
-        public static final int progress_horizontal_ptr=0x7f020071;
-        public static final int progress_primary_ptr=0x7f020072;
-        public static final int progress_secondary_ptr=0x7f020073;
-        public static final int saturn=0x7f020074;
-        public static final int selectable_background_ptr=0x7f020075;
-        public static final int spinner_ab_default_ptr=0x7f020076;
-        public static final int spinner_ab_disabled_ptr=0x7f020077;
-        public static final int spinner_ab_focused_ptr=0x7f020078;
-        public static final int spinner_ab_pressed_ptr=0x7f020079;
-        public static final int spinner_background_ab_ptr=0x7f02007a;
-        public static final int tab_indicator_ab_ptr=0x7f02007b;
-        public static final int tab_selected_focused_ptr=0x7f02007c;
-        public static final int tab_selected_pressed_ptr=0x7f02007d;
-        public static final int tab_selected_ptr=0x7f02007e;
-        public static final int tab_unselected_focused_ptr=0x7f02007f;
-        public static final int tab_unselected_pressed_ptr=0x7f020080;
-        public static final int tab_unselected_ptr=0x7f020081;
-        public static final int uranus=0x7f020082;
-        public static final int venus=0x7f020083;
+        public static final int bear=0x7f02005e;
+        public static final int bird=0x7f02005f;
+        public static final int btn_cab_done_default_ptr=0x7f020060;
+        public static final int btn_cab_done_focused_ptr=0x7f020061;
+        public static final int btn_cab_done_pressed_ptr=0x7f020062;
+        public static final int btn_cab_done_ptr=0x7f020063;
+        public static final int cab_background_bottom_ptr=0x7f020064;
+        public static final int cab_background_top_ptr=0x7f020065;
+        public static final int cat=0x7f020066;
+        public static final int drawer_shadow=0x7f020067;
+        public static final int ic_drawer=0x7f020068;
+        public static final int ic_launcher=0x7f020069;
+        public static final int iguana=0x7f02006a;
+        public static final int image=0x7f02006b;
+        public static final int list_focused_ptr=0x7f02006c;
+        public static final int menu_dropdown_panel_ptr=0x7f02006d;
+        public static final int pressed_background_ptr=0x7f02006e;
+        public static final int progress_bg_ptr=0x7f02006f;
+        public static final int progress_horizontal_ptr=0x7f020070;
+        public static final int progress_primary_ptr=0x7f020071;
+        public static final int progress_secondary_ptr=0x7f020072;
+        public static final int selectable_background_ptr=0x7f020073;
+        public static final int spinner_ab_default_ptr=0x7f020074;
+        public static final int spinner_ab_disabled_ptr=0x7f020075;
+        public static final int spinner_ab_focused_ptr=0x7f020076;
+        public static final int spinner_ab_pressed_ptr=0x7f020077;
+        public static final int spinner_background_ab_ptr=0x7f020078;
+        public static final int tab_indicator_ab_ptr=0x7f020079;
+        public static final int tab_selected_focused_ptr=0x7f02007a;
+        public static final int tab_selected_pressed_ptr=0x7f02007b;
+        public static final int tab_selected_ptr=0x7f02007c;
+        public static final int tab_unselected_focused_ptr=0x7f02007d;
+        public static final int tab_unselected_pressed_ptr=0x7f02007e;
+        public static final int tab_unselected_ptr=0x7f02007f;
+        public static final int tigers=0x7f020080;
     }
     public static final class id {
         public static final int action_bar=0x7f05001a;

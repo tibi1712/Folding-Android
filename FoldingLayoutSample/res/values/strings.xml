@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
+ Copyright (C) 2013 Priboi Tiberiu
  Copyright (C) 2013 The Android Open Source Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
@@ -34,17 +35,13 @@
         <item>6</item>
         <item>7</item>
         <item>8</item>
-    
     </string-array>
-    <string-array name="planets_array">
-        <item>Mercury</item>
-        <item>Venus</item>
-        <item>Earth</item>
-        <item>Mars</item>
-        <item>Jupiter</item>
-        <item>Saturn</item>
-        <item>Uranus</item>
-        <item>Neptune</item>
+    <string-array name="animal_array">
+        <item>Bear</item>
+        <item>Bird</item>
+        <item>Cat</item>
+        <item>Iguana</item>
+        <item>Tigers</item>
     </string-array>
 
     <string name="drawer_open">Open navigation drawer</string>
@@ -54,12 +51,8 @@
     <string name="title_activity_main">MainActivity</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
-    
-    
-        <string name="app_folding">FoldingLayout</string>
+    <string name="app_folding">FoldingLayout</string>
     <string name="app_foldingdrawer">FoldingDrawerLayout</string>
     <string name="app_foldingpanel">FoldingPanelLayout</string>
-    
-  
 
 </resources>
