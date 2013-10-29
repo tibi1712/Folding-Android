@@ -3,6 +3,10 @@ Folding-Android ([Play Store Demo][1])
 
 About
 -----
+Folding is an Open Source Android library that allows developers to easily and Folding effect to DrawerLayout and SlidingPaneLayout or to use stay alone.
+This demo app lets you explore the various properties you can set and customizations that you can do with Folding Library.
+
+Special thanks to Daniel Olshansky for making FoldingLayout.
 
 Usage
 -----
