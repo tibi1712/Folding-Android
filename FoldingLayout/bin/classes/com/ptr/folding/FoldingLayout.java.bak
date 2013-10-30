@@ -18,7 +18,6 @@
 package com.ptr.folding;
 
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -29,11 +28,13 @@ import android.graphics.Paint.Style;
 import android.graphics.Rect;
 import android.graphics.Shader.TileMode;
 import android.util.AttributeSet;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 
 import com.ptr.folding.listener.OnFoldListener;
-import com.ptr.folding.R;
 
 /**
  * The folding layout where the number of folds, the anchor point and the
@@ -55,8 +56,7 @@ import com.ptr.folding.R;
  * like effect and smoothen out the edges.
  * 
  */
-public class BaseFoldingLayout extends ViewGroup {
-
+public class FoldingLayout extends ViewGroup {
 	/*
 	 * A bug was introduced in Android 4.3 that ignores changes to the Canvas
 	 * state between multiple calls to super.dispatchDraw() when running with
@@ -68,13 +68,21 @@ public class BaseFoldingLayout extends ViewGroup {
 	 * effect was removed from the bitmap variation of the demo to simplify the
 	 * logic when running with this workaround."
 	 */
-
 	public static enum Orientation {
 		VERTICAL, HORIZONTAL
 	}
 
 	private final String FOLDING_VIEW_EXCEPTION_MESSAGE = "Folding Layout can only 1 child at "
 			+ "most";
+
+	private GestureDetector mScrollGestureDetector;
+
+	FoldingLayout that = null;
+
+	private int mTranslation = 0;
+	private int mParentPositionY = -1;
+	private int mTouchSlop = -1;
+	private boolean mDidNotStartScroll = true;
 
 	private final float SHADING_ALPHA = 0.8f;
 	private final float SHADING_FACTOR = 0.5f;
@@ -85,9 +93,9 @@ public class BaseFoldingLayout extends ViewGroup {
 
 	private Matrix[] mMatrix;
 
-	protected Orientation mOrientation = Orientation.HORIZONTAL;
+	private Orientation mOrientation = Orientation.HORIZONTAL;
 
-	protected float mAnchorFactor = 0;
+	private float mAnchorFactor = 1;
 	private float mFoldFactor = 0;
 
 	private int mNumberOfFolds = 2;
@@ -120,32 +128,28 @@ public class BaseFoldingLayout extends ViewGroup {
 	private Bitmap mFullBitmap;
 	private Rect mDstRect;
 
-	public BaseFoldingLayout(Context context) {
+	public FoldingLayout(Context context) {
 		super(context);
+		init(context, null);
+		that = this;
 	}
 
-	public BaseFoldingLayout(Context context, AttributeSet attrs) {
+	public FoldingLayout(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		init(context, attrs);
+		that = this;
 	}
 
-	public BaseFoldingLayout(Context context, AttributeSet attrs, int defStyle) {
+	public FoldingLayout(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
 		init(context, attrs);
+		that = this;
 	}
 
 	public void init(Context context, AttributeSet attrs) {
-		// now style everything!
-		TypedArray ta = context.obtainStyledAttributes(attrs,
-				R.styleable.FoldingMenu);
-		int mFoldNumber = ta.getInt(R.styleable.FoldingMenu_foldNumber,
-				mNumberOfFolds);
-		if (mFoldNumber > 0 && mFoldNumber < 7) {
-			mNumberOfFolds = mFoldNumber;
-		} else {
-			mNumberOfFolds = 2;
-		}
-		ta.recycle();
+		mScrollGestureDetector = new GestureDetector(context,
+				new ScrollGestureDetector());
+		mTouchSlop = ViewConfiguration.get(context).getScaledTouchSlop();
 	}
 
 	@Override
@@ -183,11 +187,6 @@ public class BaseFoldingLayout extends ViewGroup {
 	 */
 	private class NumberOfFoldingLayoutChildrenException extends
 			RuntimeException {
-		/**
-		 * 
-		 */
-		private static final long serialVersionUID = 1L;
-
 		public NumberOfFoldingLayoutChildrenException(String message) {
 			super(message);
 		}
@@ -383,13 +382,11 @@ public class BaseFoldingLayout extends ViewGroup {
 
 		if (mFoldFactor == 0 && mPreviousFoldFactor > 0
 				&& mFoldListener != null) {
-
 			mFoldListener.onEndFold();
 		}
 
 		if (mPreviousFoldFactor == 0 && mFoldFactor > 0
 				&& mFoldListener != null) {
-
 			mFoldListener.onStartFold();
 		}
 
@@ -635,6 +632,89 @@ public class BaseFoldingLayout extends ViewGroup {
 
 			canvas.restore();
 		}
+	}
+
+	/** This class uses user touch events to fold and unfold the folding view. */
+	private class ScrollGestureDetector extends
+			GestureDetector.SimpleOnGestureListener {
+		@Override
+		public boolean onDown(MotionEvent e) {
+			mDidNotStartScroll = true;
+			return true;
+		}
+
+		/**
+		 * All the logic here is used to determine by what factor the paper view
+		 * should be folded in response to the user's touch events. The logic
+		 * here uses vertical scrolling to fold a vertically oriented view and
+		 * horizontal scrolling to fold a horizontally oriented fold. Depending
+		 * on where the anchor point of the fold is, movements towards or away
+		 * from the anchor point will either fold or unfold the paper
+		 * respectively.
+		 * 
+		 * The translation logic here also accounts for the touch slop when a
+		 * new user touch begins, but before a scroll event is first invoked.
+		 */
+		@Override
+		public boolean onScroll(MotionEvent e1, MotionEvent e2,
+				float distanceX, float distanceY) {
+			int touchSlop = 0;
+			float factor;
+			if (mOrientation == Orientation.VERTICAL) {
+				factor = Math.abs((float) (mTranslation)
+						/ (float) (that.getHeight()));
+
+				if (e2.getY() - mParentPositionY <= that.getHeight()
+						&& e2.getY() - mParentPositionY >= 0) {
+					if ((e2.getY() - mParentPositionY) > that.getHeight()
+							* mAnchorFactor) {
+						mTranslation -= (int) distanceY;
+						touchSlop = distanceY < 0 ? -mTouchSlop : mTouchSlop;
+					} else {
+						mTranslation += (int) distanceY;
+						touchSlop = distanceY < 0 ? mTouchSlop : -mTouchSlop;
+					}
+					mTranslation = mDidNotStartScroll ? mTranslation
+							+ touchSlop : mTranslation;
+
+					if (mTranslation < -that.getHeight()) {
+						mTranslation = -that.getHeight();
+					}
+				}
+			} else {
+				factor = Math.abs(((float) mTranslation)
+						/ ((float) that.getWidth()));
+
+				if (e2.getRawX() > that.getWidth() * mAnchorFactor) {
+					mTranslation -= (int) distanceX;
+					touchSlop = distanceX < 0 ? -mTouchSlop : mTouchSlop;
+				} else {
+					mTranslation += (int) distanceX;
+					touchSlop = distanceX < 0 ? mTouchSlop : -mTouchSlop;
+				}
+				mTranslation = mDidNotStartScroll ? mTranslation + touchSlop
+						: mTranslation;
+
+				if (mTranslation < -that.getWidth()) {
+					mTranslation = -that.getWidth();
+				}
+			}
+
+			mDidNotStartScroll = false;
+
+			if (mTranslation > 0) {
+				mTranslation = 0;
+			}
+
+			that.setFoldFactor(factor);
+
+			return true;
+		}
+	}
+
+	@Override
+	public boolean onTouchEvent(MotionEvent me) {
+		return mScrollGestureDetector.onTouchEvent(me);
 	}
 
 }

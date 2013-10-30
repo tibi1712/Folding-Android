@@ -34,7 +34,7 @@ public class FoldingPaneLayout extends SlidingPaneLayout {
 
 	protected BaseFoldingLayout foldingNavigationLayout = null;
 
-	private static final String TAG = "FoldingPaneLayout";
+	
 	int mNumberOfFolds;
 
 	public FoldingPaneLayout(Context context) {

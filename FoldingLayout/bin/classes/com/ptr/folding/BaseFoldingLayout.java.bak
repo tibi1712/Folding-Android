@@ -85,9 +85,9 @@ public class BaseFoldingLayout extends ViewGroup {
 
 	private Matrix[] mMatrix;
 
-	protected Orientation mOrientation = Orientation.HORIZONTAL;
+	private Orientation mOrientation = Orientation.HORIZONTAL;
 
-	protected float mAnchorFactor = 0;
+	private float mAnchorFactor = 0;
 	private float mFoldFactor = 0;
 
 	private int mNumberOfFolds = 2;
@@ -552,13 +552,8 @@ public class BaseFoldingLayout extends ViewGroup {
 
 		mSolidShadow.setColor(Color.argb(alpha, 0, 0, 0));
 
-		if (mIsHorizontal) {
-			mShadowGradientMatrix.setScale(mFoldDrawWidth, 1);
-			mShadowLinearGradient.setLocalMatrix(mShadowGradientMatrix);
-		} else {
-			mShadowGradientMatrix.setScale(1, mFoldDrawHeight);
-			mShadowLinearGradient.setLocalMatrix(mShadowGradientMatrix);
-		}
+		mShadowGradientMatrix.setScale(mFoldDrawWidth, 1);
+		mShadowLinearGradient.setLocalMatrix(mShadowGradientMatrix);
 
 		mGradientShadow.setAlpha(alpha);
 	}
