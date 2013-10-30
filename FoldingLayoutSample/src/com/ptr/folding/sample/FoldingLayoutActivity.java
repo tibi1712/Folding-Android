@@ -42,8 +42,8 @@ import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 
+import com.ptr.folding.BaseFoldingLayout.Orientation;
 import com.ptr.folding.FoldingLayout;
-import com.ptr.folding.FoldingLayout.Orientation;
 import com.ptr.folding.listener.OnFoldListener;
 
 /**
