@@ -17,8 +17,8 @@ public final class R {
 		public static final int app_name = 0x7f0a000d;
 	}
 	public static final class style {
-		public static final int AppBaseTheme = 0x7f0b007f;
-		public static final int AppTheme = 0x7f0b0080;
+		public static final int AppBaseTheme = 0x7f0b0083;
+		public static final int AppTheme = 0x7f0b0084;
 	}
 	public static final class styleable {
 		public static final int[] FoldingMenu = { 0x7f01006a };

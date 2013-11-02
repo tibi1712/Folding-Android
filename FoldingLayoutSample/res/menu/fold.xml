@@ -27,7 +27,7 @@
         yourapp:actionLayout="@layout/spinner"/>
 
     <item
-        android:title="@string/sepia_effect_off"
+        android:title="@string/sepia_effect_on"
         android:id="@+id/sepia"
         android:checkable="true"/>
 

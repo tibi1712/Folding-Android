@@ -18,8 +18,6 @@ package com.ptr.folding.sample;
 
 import java.io.IOException;
 
-import android.animation.ObjectAnimator;
-import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
@@ -42,6 +40,8 @@ import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 
+import com.nineoldandroids.animation.ObjectAnimator;
+import com.nineoldandroids.animation.ValueAnimator;
 import com.ptr.folding.BaseFoldingLayout.Orientation;
 import com.ptr.folding.FoldingLayout;
 import com.ptr.folding.listener.OnFoldListener;
@@ -81,7 +81,8 @@ public class FoldingLayoutActivity extends ActionBarActivity {
 	 */
 	static final boolean IS_JBMR2 = Build.VERSION.SDK_INT == Build.VERSION_CODES.JELLY_BEAN_MR2;
 	static final boolean IS_ISC = Build.VERSION.SDK_INT == Build.VERSION_CODES.ICE_CREAM_SANDWICH;
-
+	static final boolean IS_HONEYCOMB = Build.VERSION.SDK_INT == Build.VERSION_CODES.HONEYCOMB;
+	
 	private FoldingLayout mFoldLayout;
 	private SeekBar mAnchorSeekBar;
 	private Orientation mOrientation = Orientation.HORIZONTAL;
@@ -93,12 +94,12 @@ public class FoldingLayoutActivity extends ActionBarActivity {
 	private boolean mDidLoadSpinner = true;
 
 	private boolean mIsCameraFeed = false;
-	private boolean mIsSepiaOn = true;
+	private boolean mIsSepiaOn =false;
 
 	private ItemSelectedListener mItemSelectedListener;
 
 	private Camera mCamera;
-	private TextureView mTextureView;
+	//private TextureView mTextureView;
 	private ImageView mImageView;
 
 	private Paint mSepiaPaint;
@@ -119,8 +120,8 @@ public class FoldingLayoutActivity extends ActionBarActivity {
 				.getDrawable(R.drawable.image));
 
 		if (IS_ISC) {
-			mTextureView = new TextureView(this);
-			mTextureView.setSurfaceTextureListener(mSurfaceTextureListener);
+			//mTextureView = new TextureView(this);
+			//mTextureView.setSurfaceTextureListener(mSurfaceTextureListener);
 		}
 
 		mAnchorSeekBar = (SeekBar) findViewById(R.id.anchor_seek_bar);
@@ -302,21 +303,21 @@ public class FoldingLayoutActivity extends ActionBarActivity {
 						: R.string.camera_feed);
 				item.setChecked(mIsCameraFeed);
 				if (mIsCameraFeed) {
-					mFoldLayout.removeView(mImageView);
-					mFoldLayout.addView(mTextureView,
-							new ViewGroup.LayoutParams(mFoldLayout.getWidth(),
-									mFoldLayout.getHeight()));
+				//	mFoldLayout.removeView(mImageView);
+				//	mFoldLayout.addView(mTextureView,
+					//		new ViewGroup.LayoutParams(mFoldLayout.getWidth(),
+					//				mFoldLayout.getHeight()));
 				} else {
-					mFoldLayout.removeView(mTextureView);
-					mFoldLayout.addView(mImageView, new ViewGroup.LayoutParams(
-							mFoldLayout.getWidth(), mFoldLayout.getHeight()));
+					//mFoldLayout.removeView(mTextureView);
+					//mFoldLayout.addView(mImageView, new ViewGroup.LayoutParams(
+					//		mFoldLayout.getWidth(), mFoldLayout.getHeight()));
 				}
 				// mTranslation = 0;
 			}
 			break;
 		case R.id.sepia:
 			mIsSepiaOn = !mIsSepiaOn;
-			item.setChecked(!mIsSepiaOn);
+			item.setChecked(mIsSepiaOn);
 			if (mIsSepiaOn && mFoldLayout.getFoldFactor() != 0) {
 				setSepiaLayer(mFoldLayout.getChildAt(0), true);
 			} else {

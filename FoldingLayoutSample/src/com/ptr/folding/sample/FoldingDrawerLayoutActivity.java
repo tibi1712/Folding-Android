@@ -17,9 +17,11 @@
 
 package com.ptr.folding.sample;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.annotation.SuppressLint;
 import android.content.res.Configuration;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
@@ -38,8 +40,8 @@ import android.widget.Spinner;
 import com.ptr.folding.FoldingDrawerLayout;
 
 /**
- * This example illustrates a common usage of the FoldingDrawerLayout widget to add Folding Efect to DrawerLayout from
- * Android support library.
+ * This example illustrates a common usage of the FoldingDrawerLayout widget to
+ * add Folding Efect to DrawerLayout from Android support library.
  * <p/>
  * <p>
  * When a navigation (left) drawer is present, the host activity should detect
@@ -82,6 +84,8 @@ public class FoldingDrawerLayoutActivity extends ActionBarActivity {
 
 	private ItemSelectedListener mItemSelectedListener;
 
+	static final boolean IS_HONEYCOMB = Build.VERSION.SDK_INT == Build.VERSION_CODES.HONEYCOMB;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -119,20 +123,27 @@ public class FoldingDrawerLayoutActivity extends ActionBarActivity {
 		R.string.drawer_close /* "close drawer" description for accessibility */
 		) {
 
+			@SuppressLint("NewApi")
 			public void onDrawerClosed(View view) {
 				getSupportActionBar().setTitle(mTitle);
-				invalidateOptionsMenu(); // creates call to
-											// onPrepareOptionsMenu()
+				if (IS_HONEYCOMB) {
+					invalidateOptionsMenu(); // creates call to
+					// onPrepareOptionsMenu()
+				}
+
 			}
 
 			public void onDrawerSlide(View drawerView, float slideOffset) {
 
 			}
 
+			@SuppressLint("NewApi")
 			public void onDrawerOpened(View drawerView) {
 				getSupportActionBar().setTitle(mDrawerTitle);
-				invalidateOptionsMenu(); // creates call to
-											// onPrepareOptionsMenu()
+				if (IS_HONEYCOMB) {
+					invalidateOptionsMenu(); // creates call to
+					// onPrepareOptionsMenu()
+				}
 			}
 		};
 		mDrawerLayout.setDrawerListener(mDrawerToggle);
@@ -190,7 +201,7 @@ public class FoldingDrawerLayoutActivity extends ActionBarActivity {
 		args.putInt(AnimalFragment.ARG_ANIMAL_NUMBER, position);
 		fragment.setArguments(args);
 
-		FragmentManager fragmentManager = getFragmentManager();
+		FragmentManager fragmentManager = getSupportFragmentManager();
 		fragmentManager.beginTransaction()
 				.replace(R.id.content_frame, fragment).commit();
 

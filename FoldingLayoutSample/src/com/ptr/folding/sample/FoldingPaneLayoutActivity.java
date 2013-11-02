@@ -17,12 +17,12 @@
 
 package com.ptr.folding.sample;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
 import android.app.SearchManager;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -127,7 +127,9 @@ public class FoldingPaneLayoutActivity extends ActionBarActivity {
 		@Override
 		public void onItemClick(AdapterView<?> parent, View view, int position,
 				long id) {
-			selectItem(position);
+			if (mPaneLayout.isOpen()) {
+				selectItem(position);
+			}
 		}
 	}
 
@@ -138,7 +140,7 @@ public class FoldingPaneLayoutActivity extends ActionBarActivity {
 		args.putInt(AnimalFragment.ARG_ANIMAL_NUMBER, position);
 		fragment.setArguments(args);
 
-		FragmentManager fragmentManager = getFragmentManager();
+		FragmentManager fragmentManager = getSupportFragmentManager();
 		fragmentManager.beginTransaction()
 				.replace(R.id.content_frame, fragment).commit();
 
@@ -168,6 +170,7 @@ public class FoldingPaneLayoutActivity extends ActionBarActivity {
 		@Override
 		public void onItemSelected(AdapterView<?> parent, View view, int pos,
 				long id) {
+
 			int mNumberOfFolds = Integer.parseInt(parent.getItemAtPosition(pos)
 					.toString());
 

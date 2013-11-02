@@ -25,7 +25,7 @@
     <string name="animate">Animate</string>
     <string name="camera_feed">Camera Feed</string>
     <string name="static_image">Static Image</string>
-    <string name="sepia_effect_off">Sepia Off</string>
+    <string name="sepia_effect_on">Sepia On</string>
 
     <string-array name="num_of_folds_array">
         <item>2</item>
