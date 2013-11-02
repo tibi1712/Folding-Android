@@ -80,7 +80,7 @@ public class FoldingLayout extends BaseFoldingLayout {
 		mScrollGestureDetector = new GestureDetector(context,
 				new ScrollGestureDetector());
 		mTouchSlop = ViewConfiguration.get(context).getScaledTouchSlop();
-		setAnchorFactor(1);
+		setAnchorFactor(0);
 		super.init(context, attrs);
 	}
 

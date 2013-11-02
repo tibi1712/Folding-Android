@@ -97,7 +97,7 @@ public class FoldingPaneLayout extends SlidingPaneLayout {
 			@Override
 			public void onPanelSlide(View arg0, float mSlideOffset) {
 				if (foldingNavigationLayout != null) {
-					foldingNavigationLayout.setFoldFactor(mSlideOffset);
+					foldingNavigationLayout.setFoldFactor(1-mSlideOffset);
 				}
 
 			}

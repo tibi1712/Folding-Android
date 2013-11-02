@@ -220,6 +220,8 @@ public class BaseFoldingLayout extends ViewGroup {
 			invalidate();
 		}
 	}
+	
+
 
 	public void setOrientation(Orientation orientation) {
 		if (orientation != mOrientation) {
@@ -321,7 +323,7 @@ public class BaseFoldingLayout extends ViewGroup {
 		int h = mOriginalHeight;
 		int w = mOriginalWidth;
 
-		if (Util.IS_JBMR2) {
+		if (Util.IS_JBMR2 &&h!=0 &&w!=0) {
 			mFullBitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
 			Canvas canvas = new Canvas(mFullBitmap);
 			getChildAt(0).draw(canvas);
@@ -596,7 +598,7 @@ public class BaseFoldingLayout extends ViewGroup {
 			 * displayed.
 			 */
 			canvas.concat(mMatrix[x]);
-			if (Util.IS_JBMR2) {
+			if (Util.IS_JBMR2 ) {
 				mDstRect.set(0, 0, src.width(), src.height());
 				canvas.drawBitmap(mFullBitmap, src, mDstRect, null);
 			} else {

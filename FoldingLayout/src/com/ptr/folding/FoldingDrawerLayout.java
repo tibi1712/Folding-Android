@@ -76,7 +76,7 @@ public class FoldingDrawerLayout extends DrawerLayout {
 			public void onDrawerSlide(View drawerView, float slideOffset) {
 
 				if (drawerView instanceof BaseFoldingLayout) {
-					((BaseFoldingLayout) drawerView).setFoldFactor(slideOffset);
+					((BaseFoldingLayout) drawerView).setFoldFactor(1-slideOffset);
 				}
 
 			}
