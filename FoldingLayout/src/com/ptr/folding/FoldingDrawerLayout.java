@@ -32,66 +32,40 @@ import android.view.ViewGroup;
  * 
  */
 public class FoldingDrawerLayout extends DrawerLayout {
+	private BaseFoldingLayout mFoldingLayout;
+
+	private ListenerProxy mDrawerListenerProxy;
 
 	public FoldingDrawerLayout(Context context) {
-		super(context);
+		this(context, null);
 	}
 
 	public FoldingDrawerLayout(Context context, AttributeSet attrs) {
-		super(context, attrs);
+		this(context, attrs, 0);
 	}
 
 	public FoldingDrawerLayout(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
+		mFoldingLayout = new BaseFoldingLayout(getContext(), attrs, defStyle);
+		mFoldingLayout.setAnchorFactor(1);
+		mDrawerListenerProxy = new ListenerProxy(null, null);
+		super.setDrawerListener(mDrawerListenerProxy);
 	}
 
 	@Override
 	protected void onAttachedToWindow() {
 		super.onAttachedToWindow();
-
 		final int childCount = getChildCount();
 		for (int i = 0; i < childCount; i++) {
 			final View child = getChildAt(i);
 			if (isDrawerView2(child)) {
-				System.out.println("at" + i);
-				BaseFoldingLayout foldingNavigationLayout = new BaseFoldingLayout(
-						getContext());
-				foldingNavigationLayout.setAnchorFactor(1);
 				removeView(child);
-				foldingNavigationLayout.addView(child);
+				mFoldingLayout.addView(child);
 				ViewGroup.LayoutParams layPar = child.getLayoutParams();
-				addView(foldingNavigationLayout, i, layPar);
+				addView(mFoldingLayout, i, layPar);
+				break;
 			}
-
 		}
-		setDrawerListener(new DrawerListener() {
-
-			@Override
-			public void onDrawerStateChanged(int arg0) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void onDrawerSlide(View drawerView, float slideOffset) {
-
-				if (drawerView instanceof BaseFoldingLayout) {
-					((BaseFoldingLayout) drawerView).setFoldFactor(1-slideOffset);
-				}
-
-			}
-
-			@Override
-			public void onDrawerOpened(View arg0) {
-
-			}
-
-			@Override
-			public void onDrawerClosed(View arg0) {
-
-			}
-		});
-
 	}
 
 	public BaseFoldingLayout getFoldingLayout(View drawerView) {
@@ -99,8 +73,9 @@ public class FoldingDrawerLayout extends DrawerLayout {
 			throw new IllegalArgumentException("View " + drawerView
 					+ " is not a sliding drawer");
 		}
-		
-		return isFoldingLayout(getRealDrawer(drawerView))?(BaseFoldingLayout)getRealDrawer(drawerView):null;
+
+		return isFoldingLayout(getRealDrawer(drawerView)) ? (BaseFoldingLayout) getRealDrawer(drawerView)
+				: null;
 	}
 
 	boolean isDrawerView2(View child) {
@@ -130,10 +105,14 @@ public class FoldingDrawerLayout extends DrawerLayout {
 		}
 
 	}
-	
-	private boolean isFoldingLayout(View drawerView)
-	{
+
+	private boolean isFoldingLayout(View drawerView) {
 		return drawerView instanceof BaseFoldingLayout;
+	}
+
+	@Override
+	public void setDrawerListener(DrawerListener listener) {
+		mDrawerListenerProxy.setDrawerListener(listener);
 	}
 
 }

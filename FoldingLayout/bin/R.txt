@@ -1,7 +1,0 @@
-int attr foldNumber 0x7f010000
-int drawable ic_launcher 0x7f020000
-int string app_name 0x7f030000
-int style AppBaseTheme 0x7f040000
-int style AppTheme 0x7f040001
-int[] styleable FoldingMenu { 0x7f010000 }
-int styleable FoldingMenu_foldNumber 0

@@ -16,7 +16,9 @@
 
 <resources>
 
-    <declare-styleable name="FoldingMenu">
+    <attr name="foldingLayoutStyle" format="reference" />
+
+    <declare-styleable name="FoldingLayout">
         <attr name="foldNumber" format="integer" />
     </declare-styleable>
 

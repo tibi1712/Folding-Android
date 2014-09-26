@@ -51,37 +51,25 @@ public class FoldingLayout extends BaseFoldingLayout {
 
 	private GestureDetector mScrollGestureDetector;
 
-	FoldingLayout that = null;
-
 	private int mTranslation = 0;
 	private int mParentPositionY = -1;
 	private int mTouchSlop = -1;
 	private boolean mDidNotStartScroll = true;
 
 	public FoldingLayout(Context context) {
-		super(context);
-		init(context, null);
-		that = this;
+		this(context, null);
 	}
 
 	public FoldingLayout(Context context, AttributeSet attrs) {
-		super(context, attrs);
-		init(context, attrs);
-		that = this;
+		this(context, attrs, 0);
 	}
 
 	public FoldingLayout(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
-		init(context, attrs);
-		that = this;
-	}
-
-	public void init(Context context, AttributeSet attrs) {
 		mScrollGestureDetector = new GestureDetector(context,
 				new ScrollGestureDetector());
 		mTouchSlop = ViewConfiguration.get(context).getScaledTouchSlop();
 		setAnchorFactor(0);
-		super.init(context, attrs);
 	}
 
 	@Override
@@ -148,11 +136,11 @@ public class FoldingLayout extends BaseFoldingLayout {
 			float factor;
 			if (mOrientation == Orientation.VERTICAL) {
 				factor = Math.abs((float) (mTranslation)
-						/ (float) (that.getHeight()));
+						/ (float) (getHeight()));
 
-				if (e2.getY() - mParentPositionY <= that.getHeight()
+				if (e2.getY() - mParentPositionY <= getHeight()
 						&& e2.getY() - mParentPositionY >= 0) {
-					if ((e2.getY() - mParentPositionY) > that.getHeight()
+					if ((e2.getY() - mParentPositionY) > getHeight()
 							* getAnchorFactor()) {
 						mTranslation -= (int) distanceY;
 						touchSlop = distanceY < 0 ? -mTouchSlop : mTouchSlop;
@@ -163,15 +151,15 @@ public class FoldingLayout extends BaseFoldingLayout {
 					mTranslation = mDidNotStartScroll ? mTranslation
 							+ touchSlop : mTranslation;
 
-					if (mTranslation < -that.getHeight()) {
-						mTranslation = -that.getHeight();
+					if (mTranslation < -getHeight()) {
+						mTranslation = -getHeight();
 					}
 				}
 			} else {
-				factor = Math.abs(((float) mTranslation)
-						/ ((float) that.getWidth()));
+				factor = Math
+						.abs(((float) mTranslation) / ((float) getWidth()));
 
-				if (e2.getRawX() > that.getWidth() * getAnchorFactor()) {
+				if (e2.getRawX() > getWidth() * getAnchorFactor()) {
 					mTranslation -= (int) distanceX;
 					touchSlop = distanceX < 0 ? -mTouchSlop : mTouchSlop;
 				} else {
@@ -181,8 +169,8 @@ public class FoldingLayout extends BaseFoldingLayout {
 				mTranslation = mDidNotStartScroll ? mTranslation + touchSlop
 						: mTranslation;
 
-				if (mTranslation < -that.getWidth()) {
-					mTranslation = -that.getWidth();
+				if (mTranslation < -getWidth()) {
+					mTranslation = -getWidth();
 				}
 			}
 
@@ -192,7 +180,7 @@ public class FoldingLayout extends BaseFoldingLayout {
 				mTranslation = 0;
 			}
 
-			that.setFoldFactor(factor);
+			setFoldFactor(factor);
 
 			return true;
 		}
