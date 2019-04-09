@@ -121,31 +121,26 @@ public class BaseFoldingLayout extends ViewGroup {
 	private Rect mDstRect;
 
 	public BaseFoldingLayout(Context context) {
-		super(context);
+		this(context, null);
 	}
 
 	public BaseFoldingLayout(Context context, AttributeSet attrs) {
-		super(context, attrs);
-		init(context, attrs);
+		this(context, attrs, R.attr.foldingLayoutStyle);
 	}
 
 	public BaseFoldingLayout(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
-		init(context, attrs);
-	}
 
-	public void init(Context context, AttributeSet attrs) {
-		// now style everything!
-		TypedArray ta = context.obtainStyledAttributes(attrs,
-				R.styleable.FoldingMenu);
-		int mFoldNumber = ta.getInt(R.styleable.FoldingMenu_foldNumber,
+		TypedArray a = context.obtainStyledAttributes(attrs,
+				R.styleable.FoldingLayout);
+		int mFoldNumber = a.getInt(R.styleable.FoldingLayout_foldNumber,
 				mNumberOfFolds);
 		if (mFoldNumber > 0 && mFoldNumber < 7) {
 			mNumberOfFolds = mFoldNumber;
 		} else {
 			mNumberOfFolds = 2;
 		}
-		ta.recycle();
+		a.recycle();
 	}
 
 	@Override
@@ -220,8 +215,6 @@ public class BaseFoldingLayout extends ViewGroup {
 			invalidate();
 		}
 	}
-	
-
 
 	public void setOrientation(Orientation orientation) {
 		if (orientation != mOrientation) {
@@ -323,7 +316,7 @@ public class BaseFoldingLayout extends ViewGroup {
 		int h = mOriginalHeight;
 		int w = mOriginalWidth;
 
-		if (Util.IS_JBMR2 &&h!=0 &&w!=0) {
+		if (Util.IS_JBMR2 && h != 0 && w != 0) {
 			mFullBitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
 			Canvas canvas = new Canvas(mFullBitmap);
 			getChildAt(0).draw(canvas);
@@ -598,7 +591,7 @@ public class BaseFoldingLayout extends ViewGroup {
 			 * displayed.
 			 */
 			canvas.concat(mMatrix[x]);
-			if (Util.IS_JBMR2 ) {
+			if (Util.IS_JBMR2) {
 				mDstRect.set(0, 0, src.width(), src.height());
 				canvas.drawBitmap(mFullBitmap, src, mDstRect, null);
 			} else {

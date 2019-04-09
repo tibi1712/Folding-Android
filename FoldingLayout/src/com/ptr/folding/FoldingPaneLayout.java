@@ -18,63 +18,39 @@
 package com.ptr.folding;
 
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.support.v4.widget.SlidingPaneLayout;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.ptr.folding.R;
-
 /**
- * FoldingPaneLayout change the sliding effect with folding effect of SlidingPaneLayout
+ * FoldingPaneLayout change the sliding effect with folding effect of
+ * SlidingPaneLayout
  * 
  */
 public class FoldingPaneLayout extends SlidingPaneLayout {
 
-	protected BaseFoldingLayout foldingNavigationLayout = null;
+	private ListenerProxy mListenerProxy;
 
-	
-	int mNumberOfFolds;
+	private BaseFoldingLayout mFoldingLayout;
 
 	public FoldingPaneLayout(Context context) {
 		this(context, null);
-		foldingNavigationLayout = new BaseFoldingLayout(getContext());
 	}
 
 	public FoldingPaneLayout(Context context, AttributeSet attrs) {
 		this(context, attrs, 0);
-
-		initView(context, attrs);
 	}
 
 	public FoldingPaneLayout(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
-
-		initView(context, attrs);
-
-	}
-
-	private void initView(Context context, AttributeSet attrs) {
-		TypedArray ta = context.obtainStyledAttributes(attrs,
-				R.styleable.FoldingMenu);
-		int mFoldNumber = ta.getInt(R.styleable.FoldingMenu_foldNumber,
-				mNumberOfFolds);
-		if (mFoldNumber > 0 && mFoldNumber < 7) {
-			mNumberOfFolds = mFoldNumber;
-		} else {
-			mNumberOfFolds = 2;
-		}
-		ta.recycle();
-
-		foldingNavigationLayout = new BaseFoldingLayout(getContext());
-		foldingNavigationLayout.setNumberOfFolds(mNumberOfFolds);
-		foldingNavigationLayout.setAnchorFactor(0);
-
+		mFoldingLayout = new BaseFoldingLayout(getContext(), attrs, defStyle);
+		mListenerProxy = new ListenerProxy(null, null);
+		super.setPanelSlideListener(mListenerProxy);
 	}
 
 	public BaseFoldingLayout getFoldingLayout() {
-		return foldingNavigationLayout;
+		return mFoldingLayout;
 	}
 
 	@Override
@@ -83,35 +59,15 @@ public class FoldingPaneLayout extends SlidingPaneLayout {
 
 		View child = getChildAt(0);
 		if (child != null) {
-			System.out.println(child);
-
 			removeView(child);
-			foldingNavigationLayout.addView(child);
+			mFoldingLayout.addView(child);
 			ViewGroup.LayoutParams layPar = child.getLayoutParams();
-			addView(foldingNavigationLayout, 0, layPar);
-
+			addView(mFoldingLayout, 0, layPar);
 		}
+	}
 
-		setPanelSlideListener(new PanelSlideListener() {
-
-			@Override
-			public void onPanelSlide(View arg0, float mSlideOffset) {
-				if (foldingNavigationLayout != null) {
-					foldingNavigationLayout.setFoldFactor(1-mSlideOffset);
-				}
-
-			}
-
-			@Override
-			public void onPanelOpened(View arg0) {
-
-			}
-
-			@Override
-			public void onPanelClosed(View arg0) {
-
-			}
-		});
-
+	@Override
+	public void setPanelSlideListener(PanelSlideListener listener) {
+		mListenerProxy.setPanelSlideListener(listener);
 	}
 }
